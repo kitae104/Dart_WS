@@ -1,38 +1,38 @@
-class MyHomePage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:navigator_page/person.dart';
 
-  final _items = List.generate(50, (i) => ListTile(title: Text('No. $i')));
+class SecondPage extends StatelessWidget {
+
+  late final Person person;
+
+  SecondPage({required this.person});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("SliverAppBar/SliverFillRemaining"),
+        title: Text('Second'),
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,   // 축소시 상단에 AppBar가 고정되는지 설정
-            expandedHeight: 180.0,  // 헤더의 최대 높이
-            flexibleSpace: FlexibleSpaceBar(  // 늘어나는 영역의 UI 정의
-              title: Text("Sliver"),
-              background: Image.asset('images/sample.jpg',
-                  fit: BoxFit.cover
-              ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: (){
-
-                },
-                icon: Icon(Icons.arrow_downward),
-              ),
-            ],
+      body: ElevatedButton(
+        onPressed: (){
+          Navigator.pop(context, 'ok'); // 문자열을 이전 페이지로 전달함
+        },
+        child: Text('이전 페이지로'),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.redAccent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(_items),
-          ),
-        ],
+          elevation: 0.0,
+        ),
       ),
     );
   }
+}
+
+class Person{
+  String? name;
+  int? age;
+
+  Person(this.name, this.age);
 }
